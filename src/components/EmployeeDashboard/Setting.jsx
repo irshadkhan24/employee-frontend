@@ -18,6 +18,8 @@ const Setting = () => {
     const [showOld, setShowOld] = useState(false);
     const [showNew, setShowNew] = useState(false);
     //const [showConfirm, setShowConfirm] = useState(false);
+    
+    const API_URL = import.meta.env.VITE_API_URL; // 👈 Add this line for api not locally
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -30,7 +32,7 @@ const Setting = () => {
             setError("Password not matched");
         } else {
             try {
-                const response = await axios.put("http://localhost:5000/api/setting/change-password", setting, {
+                const response = await axios.put(`${API_URL}/api/setting/change-password`, setting, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`,
                     },
