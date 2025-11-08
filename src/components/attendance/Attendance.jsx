@@ -9,6 +9,8 @@ const Attendance = () => {
   const [loading, setLoading] = useState(false)
   const [filteredAttendance, setFiltereAttendance] = useState([])
 
+  const API_URL = import.meta.env.VITE_API_URL; // ✅ Environment-based API base URL
+
   const statusChange = () => {
     fetchAttendance();
   }
@@ -16,7 +18,7 @@ const Attendance = () => {
   const fetchAttendance = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:5000/api/attendance', {
+     const response = await axios.get(`${API_URL}/api/attendance`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
