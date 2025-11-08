@@ -9,6 +9,9 @@ const Add = () => {
     const [formData, setFormData] = useState({})
     const navigate = useNavigate()
 
+    // ✅ Base API URL from .env (VITE_API_URL)
+    const API_BASE_URL = import.meta.env.VITE_API_URL;
+
     useEffect(() => {
        const getDepartments = async () => {         //fetch data in departments
         const departments = await fetchDepartments();
@@ -35,7 +38,7 @@ const Add = () => {
         })
 
         try {
-            const response = await axios.post('http://localhost:5000/api/employee/add', formDataObj, {
+            const response = await axios.post(`${API_BASE_URL}/api/employee/add`, formDataObj, {
                 headers: {
                     Authorization : `Bearer ${localStorage.getItem('token')}`
                 }
