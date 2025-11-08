@@ -18,7 +18,8 @@ const AddDepartment = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            const response = await axios.post('http://localhost:5000/api/department/add', department, {
+            const API_URL = import.meta.env.VITE_API_URL;
+            const response = await axios.post(`${API_URL}/api/department/add`, department, {
                 headers: {
                     "Authorization" : `Bearer ${localStorage.getItem('token')}`
                 }
