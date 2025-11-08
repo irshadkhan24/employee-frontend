@@ -8,6 +8,8 @@ const AttendanceReport = () => {
   const [dateFilter, setDateFilter] = useState();
   const [loading, setLoading] = useState(false)
 
+  const API_URL = import.meta.env.VITE_API_URL; // ✅ Environment-based base URL
+
   const fetchReport = async () => {
     try {
       setLoading(true)
@@ -15,7 +17,9 @@ const AttendanceReport = () => {
       if (dateFilter) {
         query.append("date", dateFilter)
       }
-      const response = await axios.get(`http://localhost:5000/api/attendance/report?${query.toString()}`, {
+      const response = await axios.get(
+        `${API_URL}/api/attendance/report?${query.toString()}`,
+        {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         },
