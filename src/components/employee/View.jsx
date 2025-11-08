@@ -5,11 +5,14 @@ import { useParams } from 'react-router-dom'
 const View = () => {
     const {id} = useParams()
     const [employee, setEmployee] = useState(null);
+
+     const API_URL = import.meta.env.VITE_API_URL; // ✅ use environment variable
+
     
     useEffect(() => {
             const fetchEmployee = async () => {
               try {
-                const responnse = await axios.get(`http://localhost:5000/api/employee/${id}`, {
+                 const response = await axios.get(`${API_URL}/api/employee/${id}`, {
                   headers: {
                     Authorization : `Bearer ${localStorage.getItem('token')}`
                   },
@@ -26,7 +29,7 @@ const View = () => {
               } 
             };
             fetchEmployee();
-          }, []);
+          }, [API_URL, id]);
   return (
     <>{employee ?(
     <div className='max-w-4xl mx-auto mt-10 bg-white p-8 rounded-md shadow-md'>
