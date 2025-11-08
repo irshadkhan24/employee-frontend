@@ -9,7 +9,8 @@ const AdminSummary = () => {       // dynamic dashbord, summary value pass conce
   useEffect(() => {
     const fetchSummary = async () => {
       try {
-        const summary = await axios.get('http://localhost:5000/api/dashboard/summary', {
+        const API_URL = import.meta.env.VITE_API_URL; // ✅ Use env variable
+        const summary = await axios.get(`${API_URL}/api/dashboard/summary`, {
           headers: {
             "Authorization" : `Bearer ${localStorage.getItem('token')}`
           }
