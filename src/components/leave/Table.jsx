@@ -8,9 +8,13 @@ const Table = () => {
   const [filteredLeaves, setFilteredLeaves] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // ✅ Use environment variable for API URL
+  const API_BASE_URL = import.meta.env.VITE_API_URL;
+
+  // ✅ Fetch all leaves
   const fetchLeaves = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/leave', {
+      const response = await axios.get(`${API_BASE_URL}/api/leave`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
@@ -49,10 +53,12 @@ const Table = () => {
     }
   };
 
+  // ✅ Run once on mount
   useEffect(() => {
     fetchLeaves();
   }, []);
 
+  // ✅ Search by Employee ID
   const filterByInput = (e) => {
     const value = e.target.value.toLowerCase();
     const data = leaves.filter((leave) =>
@@ -61,6 +67,7 @@ const Table = () => {
     setFilteredLeaves(data);
   };
 
+  // ✅ Filter by status (Pending / Approved / Rejected)
   const filterByButton = (status) => {
     const data = leaves.filter(
       (leave) => leave.status.toLowerCase() === status.toLowerCase()
